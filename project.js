@@ -1,26 +1,32 @@
 
 $(document).ready(() => {
-   
+
     $('#choose_name').on('change', () => {
         var choose = $('#choose_name').val();
-        Seletion(choose);
+        Selection(choose);
     });
     requesDataApi();
 });
 // responce the seletion
-var Seletion = (data) => {
-    switch (parseInt(data)) {
+var Selection = (getSeletion) => {
+    var chooseSelet = parseInt(getSeletion);
+    switch (chooseSelet) {
         case 0:
-            console.log(one);
+            console.log('number1');
             break;
         case 1:
-            console.log(two);
+            console.log('number2');
             break;
         case 2:
-            console.log(three);
+            console.log('number3');
             break;
-    };
-};
+    }
+}
+
+var hideAlert = () =>{
+    $('.alert').hide();
+}
+
 // reques data from api
 var requesDataApi = () => {
     $.ajax({
