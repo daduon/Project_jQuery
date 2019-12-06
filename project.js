@@ -1,11 +1,21 @@
 
 $(document).ready(() => {
-
     $('#choose_name').on('change', () => {
         var choose = $('#choose_name').val();
         Selection(choose);
     });
     requesDataApi();
+
+// sum data in api
+    $('#add').on('click', () =>{
+        var addNumber = $('#sum').val();
+        addData(addNumber);
+    });
+// minus data in api
+$('#minus').on('click', () =>{
+    var minusNumber = $('#sum').val();
+    minusData(minusNumber);
+});
 });
 // responce the seletion
 var Selection = (getSeletion) => {
@@ -88,3 +98,20 @@ var outRecipes = (element) => {
     `;
     $('#recipes').append(resultRecipes);
 };
+
+// This is plus number
+var addData =(sum) =>{
+    var add = parseInt(sum) + 1;
+    if (add <= 15) {
+        $('#sum').val(add);
+    }
+}
+
+// This is minus number
+
+var minusData =(sum) =>{
+    var minus = parseInt(sum) - 1;
+    if (minus >= 0) {
+        $('#sum').val(minus);
+    }
+}
