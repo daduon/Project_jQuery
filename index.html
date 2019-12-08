@@ -5,44 +5,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Project_jQuery</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Select Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 
 <body>
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-4">
-                <div class="input-group mb-3">
-                    <div class="input-group-append">
-                        <button class="btn btn-danger" id="minus" type="button">-</button>
-                    </div>
-                    <input type="text" class="form-control" id="sum" value="0">
-                    <div class="input-group-append">
-                        <button class="btn btn-info" id="add" type="button">+</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <form action="#">
-                    <select id="choose_name" class="form-control">
-                        <option value="" disabled selected>Choose Recipe</option>
-                        <option value="0">Nom Pom</option>
-                        <option value="1">Chocolate</option>
-                        <option value="2">Avocado Shake (Toek KaLok)</option>
-                    </select>
-                </form>
-            </div>
-            <div class="col-4"></div>
-        </div>
+        <form action="#">
+            <select id="choose_name" class="form-control">
+                <option value="" disabled selected>Choose Recipe</option>
+                <option value="" disabled>Nom Pom</option>
+                <option value="1">Chocolate</option>
+                <option value="2">Avocado Shake (Toek KaLok)</option>
+            </select>
+        </form>
     </div>
+
     <div class="container mt-5">
         <div class="row">
-            <div class="col-4" id="recipes">
-
+            <div class="col-6">
+                <div class="card" id="Avocado"></div>
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <button class="btn btn-danger" id="mAvocado" type="button">-</button>
+                    </div>
+                    <input type="text" class="form-control" id="sAvocado" value="0">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" id="aAvocado" type="button">+</button>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" id="pAvocado"></div>
+                </div>
+                <hr>
+                <table class="table table-bordered" id="ingredientAvocado"></table>
             </div>
-            <div class="col-8">
-                <table class="table table-boreder" id="ingredients"></table>
+            <div class="col-6">
+                <div class="card" id="French"></div>
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <button class="btn btn-danger" id="mFrench" type="button">-</button>
+                    </div>
+                    <input type="text" class="form-control" id="sFrench" value="0">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" id="aFrench" type="button">+</button>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" id="pFrench"></div>
+                </div>
+                <hr>
+                <table class="table table-bordered" id="ingredientFrench"></table>
             </div>
         </div>
     </div>
