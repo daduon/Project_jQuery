@@ -1,210 +1,95 @@
-var sumAvocado;
-var sumFrench;
-$(document).ready(function () {
-       Avocado();
-       French(); 
-    // This is code for increase ingredient of Avocado Shake (Toek KaLok)
-    $('#aAvocado').on('click', function () {
-        var sum = $('#sAvocado').val();
-        updateAvocado();
-        sumAvocado = sum;
-        addAvocado(sum);
-    });
-    $('#mAvocado').on('click', function () {
-        var minus = $('#sAvocado').val();
-        updateAvocado();
-        sumAvocado = minus;
-        minusAvocado(minus);
-    });
-    // This is code for increase ingredient of French creps
-    $('#aFrench').on('click', function () {
-        var sum = $('#sFrench').val();
-        updateFrench();
-        sumFrench = sum;
-        addFrench(sum);
-    });
-    $('#mFrench').on('click', function () {
-        var minus = $('#sFrench').val();
-        updateFrench();
-        sumFrench = minus;
-        minusFrench(minus);
-    });
-});
-
-var Avocado=()=> {
-    $.ajax({
-        dataType: 'json',
-        url: getUrl(),
-        success: (data) => defaultAvocado(data),
-        error: () => getError(),
-    });
-}
-var getUrl=() =>{
-    var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
+function getUrl() {
+    var url ="https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
     return url;
 }
- // This is code for output  Avocado Shake (Toek KaLok) image and name
-var defaultAvocado=(myData)=> {
-    var result ="";
-    myData.recipes.forEach( recipe => {
-        if(recipe.id == 0){
-             result+=`
-            <div class="card-header">
-                ${recipe.name}
-            </div>
-            <div class="card-body">
-                <img src="${recipe.iconUrl}" class="img-fluid"/>
-            </div>
-            <div class="card-footer">
-                ${recipe.instructions}
-            </div>
+$(document).ready(() =>{
+    requestApi();
+    $('#recipe').on('change',function(){
+        var recipes = $('#recipe').val();
+        getRecipe(recipes);
+    });
+
+});
+function requestApi(){
+    $.ajax({
+        dataType: 'json',
+        url:getUrl(),
+        success: (data) => chhosenRechipe(data.recipes),
+        error: () => console.log("Cannot get data"),
+    })
+}
+var alldata = [];
+function chhosenRechipe(rechipe){
+    alldata = rechipe;
+    rechipe.forEach(element => {
+        Option +=`
+            <option value = "${element.id}">${element.name}</option>
         `;
-        Avocadoingredient(recipe);
+    });
+    $('#recipe').append(Option);
+}
+    // var myString = "<step>Add the avocado, sugar and concentrated milk into the blender<step>Add the ice<step>Mix for 10 mins";
+    // var arr = myString.split('<step>');
+    // console.log(myString);
+    // console.log(arr[0]);
+    // console.log(arr[1]);
+    // console.log(arr[2]);
+function getRecipe(rechipeId){
+    alldata.forEach(element =>{
+        if(element.id == rechipeId){
+            var step = element.instructions;
+            var cutStep = step.split('<step>');
+            // cutStep.forEach(myStep =>{
+            //     countStep++;
+            //     resultStep +=`
+            //         <tr>
+            //             <td>${countStep}</td>
+            //             <td>${myStep}</td>
+            //         </tr>
+            //     `;
+            // });
+            var countStep =1;
+            var resultStep = "";
+            for(let i =1; i< cutStep.length; i++){
+                resultStep += `
+                    <tr>
+                        <td><p>Step</p></td>
+                        <td>${countStep} </td>
+                        <td>${cutStep[i]} </td>
+                    </tr>
+                `;
+                countStep++;
+               console.log(cutStep[i]);
+               console.log(countStep);
+            };
+            $('#result-step').html(resultStep);
+           getEachRecipe(element.iconUrl,element.name,element.ingredients);
         };
-    });
-    $('#Avocado').html(result);
+    });   
+};
+var getEachRecipe = (img,name,ingredient) =>{
+    gerInstructions(ingredient);
+    var result = "";
+    result +=`
+        <img src="${img}" width="100">
+        <p>${name}</p>
+    `;
+    $('#result').html(result);
 }
- // This is code for output ingredients of  Avocado Shake (Toek KaLok)
-var Avocadoingredient=(myIngredients)=> {
-    result = "";
-    myIngredients.ingredients.forEach(item => {
-        result += `
-            <tr>
-                <td><img src="${item.iconUrl}" width="100"></td>
-                <td>${item.name}</td>
-                <td>${item.quantity}</td>
-                <td>${item.unit[0]}</td>
-            </tr>
-        `;
-    });
-    $('#ingredientAvocado').html(result);  
-}
-var updateAvocado=()=> {
-    $.ajax({
-        dataType: 'json',
-        url: getUrl(),
-        success: (data) => getAvocado(data),
-        error: () => getError(),
-    });
-}
-// This is code for increase ingredient of Avocado Shake (Toek KaLok)
-var getAvocado=(myData)=> {
-    myData.recipes.forEach( recipe => {
-        var result = "";
-        if(recipe.id ==0){
-            recipe.ingredients.forEach(item => {
-            result += `
-                <tr>
-                    <td><img src="${item.iconUrl}" width="100"></td>
-                    <td>${item.name}</td>
-                    <td>${item.quantity * sumAvocado}</td>
-                    <td>${item.unit[0]}</td>
-                </tr>
-            `;
-        });
-       $('#ingredientAvocado').html(result);
-        }
-        
-    });
-}
-// This is code for increase ingredient of Avocado Shake (Toek KaLok)
-var addAvocado = (num) => {
-    var number = parseInt(num) + 1;
-    if (number <= 15) {
-        $('#sAvocado').val(number);
-        conpute(number);
-    }
-}
-var minusAvocado = (num) => {
-    var number = parseInt(num) - 1;
-    if (number >= 0) {
-        $('#sAvocado').val(number);
-    }
-}
- // This is code for output French creps
-var French=()=> {
-    $.ajax({
-        dataType: 'json',
-        url: getUrl(),
-        success: (data) => defaultFrench(data),
-        error: () => getError(),
-    });
-}
-// This is code for output French creps image and name
-var defaultFrench=(myData) =>{
+var gerInstructions=(item)=>{
     var result ="";
-    myData.recipes.forEach( recipe => {
-        if(recipe.id == 1){
-            console.log(recipe);
-             result+=`
-            <div class="card-header">
-                ${recipe.name}
-            </div>
-            <div class="card-body">
-                <img src="${recipe.iconUrl}" class="img-fluid"/>
-            </div>
-            <div class="card-footer">
-                ${recipe.instructions}
-            </div>
-        `;
-        FrenchIngredient(recipe);
-        };
-    });
-    $('#French').html(result);
-}
-// This is code for output ingredinets of French creps
-var FrenchIngredient=(myIngredients) =>{
-    result = "";
-    myIngredients.ingredients.forEach(item => {
-        result += `
+    item.forEach(myItem =>{
+        result +=`
             <tr>
-                <td><img src="${item.iconUrl}" width="100"></td>
-                <td>${item.name}</td>
-                <td>${item.quantity}</td>
-                <td>${item.unit[0]}</td>
+                <td>${myItem.name}</td>
+                <td>${myItem.quantity}</td>
+                <td>${myItem.unit[0]}</td>
+                <td><img src="${myItem.iconUrl}" width="60"/></td>
             </tr>
-        `;
+        `;   
     });
-    $('#ingredientFrench').html(result);  
-}
-// This is code for update ingredinets of French creps
-var updateFrench=()=> {
-    $.ajax({
-        dataType: 'json',
-        url: getUrl(),
-        success: (data) => getFrench(data),
-        error: () => getError(),
-    });
-}
-var getFrench=(myData)=> {
-    myData.recipes.forEach( recipe => {
-        var result = "";
-        if(recipe.id ==1){
-            recipe.ingredients.forEach(item => {
-            result += `
-                <tr>
-                    <td><img src="${item.iconUrl}" width="100"></td>
-                    <td>${item.name}</td>
-                    <td>${item.quantity * sumFrench}</td>
-                    <td>${item.unit[0]}</td>
-                </tr>
-            `;
-        });
-       $('#ingredientFrench').html(result);
-        }
-    });
-}
-    // This is code for increase ingredient of French creps
-var addFrench = (num) => {
-    var number = parseInt(num) + 1;
-    if (number <= 15) {
-        $('#sFrench').val(number);
-        conpute(number);
-    }
-}
-var minusFrench = (num) => {
-    var number = parseInt(num) - 1;
-    if (number >= 0) {
-        $('#sFrench').val(number);
-    }
+    $("#result-ingrecient").html(result);
+};
+function cutStep(step){
+    console.log(step);
 }

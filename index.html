@@ -1,66 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Select Form</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
-
 <body>
     <div class="container mt-5">
-        <form action="#">
-            <select id="choose_name" class="form-control">
-                <option value="" disabled selected>Choose Recipe</option>
-                <option value="" disabled>Nom Pom</option>
-                <option value="1">Chocolate</option>
-                <option value="2">Avocado Shake (Toek KaLok)</option>
-            </select>
-        </form>
-    </div>
-
-    <div class="container mt-5">
         <div class="row">
-            <div class="col-6">
-                <div class="card" id="Avocado"></div>
-                <div class="input-group mb-3">
-                    <div class="input-group-append">
-                        <button class="btn btn-danger" id="mAvocado" type="button">-</button>
-                    </div>
-                    <input type="text" class="form-control" id="sAvocado" value="0">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" id="aAvocado" type="button">+</button>
-                    </div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" id="pAvocado"></div>
-                </div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <select id="recipe" class="form-control">
+                    <option value="" disabled selected>Choose Rechipe......</option>
+                </select>
                 <hr>
-                <table class="table table-bordered" id="ingredientAvocado"></table>
+                <h1 class="display-1 text-center"></h1>
             </div>
-            <div class="col-6">
-                <div class="card" id="French"></div>
-                <div class="input-group mb-3">
-                    <div class="input-group-append">
-                        <button class="btn btn-danger" id="mFrench" type="button">-</button>
-                    </div>
-                    <input type="text" class="form-control" id="sFrench" value="0">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" id="aFrench" type="button">+</button>
-                    </div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" id="pFrench"></div>
-                </div>
-                <hr>
-                <table class="table table-bordered" id="ingredientFrench"></table>
-            </div>
+            <div class="col-4" id="result"></div>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <div class="container">
+        <table class="table table-bordered" id="result-ingrecient"></table>
+        <table class="table table-bordered" id="result-step"></table>
+    </div>
     <script src="project.js"></script>
 </body>
-
 </html>
