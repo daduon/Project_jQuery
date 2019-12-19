@@ -1,95 +1,152 @@
+// function for get API
 function getUrl() {
-    var url ="https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
+    var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
     return url;
 }
-$(document).ready(() =>{
+$(document).ready(() => {
     requestApi();
-    $('#recipe').on('change',function(){
+    $('#recipe').on('change', function () {
         var recipes = $('#recipe').val();
         getRecipe(recipes);
+        hide();
+        addDataIngredient();
+        minusDataIngredient();
     });
-
 });
-function requestApi(){
+//this is ajax for reques api
+function requestApi() {
     $.ajax({
         dataType: 'json',
-        url:getUrl(),
+        url: getUrl(),
         success: (data) => chhosenRechipe(data.recipes),
         error: () => console.log("Cannot get data"),
-    })
-}
+    });
+};
+//this is function for store api after keep in array for use another function
 var alldata = [];
-function chhosenRechipe(rechipe){
+function chhosenRechipe(rechipe) {
     alldata = rechipe;
     rechipe.forEach(element => {
-        Option +=`
+        Option += `
             <option value = "${element.id}">${element.name}</option>
         `;
     });
     $('#recipe').append(Option);
-}
-    // var myString = "<step>Add the avocado, sugar and concentrated milk into the blender<step>Add the ice<step>Mix for 10 mins";
-    // var arr = myString.split('<step>');
-    // console.log(myString);
-    // console.log(arr[0]);
-    // console.log(arr[1]);
-    // console.log(arr[2]);
-function getRecipe(rechipeId){
-    alldata.forEach(element =>{
-        if(element.id == rechipeId){
+};
+// this is function for get data from array
+function getRecipe(rechipeId) {
+    alldata.forEach(element => {
+        if (element.id == rechipeId) {
             var step = element.instructions;
-            var cutStep = step.split('<step>');
-            // cutStep.forEach(myStep =>{
-            //     countStep++;
-            //     resultStep +=`
-            //         <tr>
-            //             <td>${countStep}</td>
-            //             <td>${myStep}</td>
-            //         </tr>
-            //     `;
-            // });
-            var countStep =1;
+            $('#sum').val(element.nbGuests);//for getdata from guest into intput
+            getDataVal = $('#sum').val();
+// this is code for cut step in api
+            var cutStep = step.split('<step>')
             var resultStep = "";
-            for(let i =1; i< cutStep.length; i++){
+            for (let i = 1; i < cutStep.length; i++) {
                 resultStep += `
+                <div class="card shadow-lg"> 
                     <tr>
-                        <td><p>Step</p></td>
-                        <td>${countStep} </td>
+                        <td style="color:blue">Step ${i}</td>
                         <td>${cutStep[i]} </td>
                     </tr>
+                </div>
+                    
                 `;
-                countStep++;
-               console.log(cutStep[i]);
-               console.log(countStep);
             };
             $('#result-step').html(resultStep);
-           getEachRecipe(element.iconUrl,element.name,element.ingredients);
+            getEachRecipe(element.iconUrl, element.name, element.ingredients);
         };
-    });   
+    });
 };
-var getEachRecipe = (img,name,ingredient) =>{
+//this is function for update recipe. sum from increas ingedients
+var updateDataRecipe = (rechipeId, sum) => { 
+    alldata.forEach(myItem => {
+        if (myItem.id == rechipeId) {
+            updateIngredient(myItem.ingredients, sum);
+            $('#sum').val(sum);
+        };
+    });
+};
+// this is function for update ingredients and sum from update recipe
+var updateIngredient = (item, sum) => {
+    var result = "";
+    item.forEach(myItem => {
+        // this is code for calculator ingredients that update
+        var addIngredient = myItem.quantity * parseInt(sum) / getDataVal;
+        result += `
+       
+            <tr>
+                <td>${myItem.name}</td>
+                <td>${addIngredient}</td>
+                <td>${myItem.unit[0]}</td>
+                <td><img src="${myItem.iconUrl}" width="60"/></td>
+            </tr>
+        `;
+    });
+    $("#result-ingrecient").html(result);
+};
+// this is function for out put image name
+var getEachRecipe = (img, name, ingredient) => {
     gerInstructions(ingredient);
     var result = "";
-    result +=`
-        <img src="${img}" width="100">
-        <p>${name}</p>
+    result += `
+        <div class="card-header">${name}</div>
+        <div class="card shadow-lg"><img src="${img}" class="img-thumbnail img-fluid" width="500" height="300"></div>
     `;
     $('#result').html(result);
-}
-var gerInstructions=(item)=>{
-    var result ="";
-    item.forEach(myItem =>{
-        result +=`
+};
+// this is fuction for out put ingredient
+var gerInstructions = (item) => {
+    updateIngredient(item);
+    var result = "";
+    item.forEach(myItem => {
+        result += `
+        <div class="card shadow-lg"> 
             <tr>
                 <td>${myItem.name}</td>
                 <td>${myItem.quantity}</td>
                 <td>${myItem.unit[0]}</td>
                 <td><img src="${myItem.iconUrl}" width="60"/></td>
             </tr>
-        `;   
+        </div>
+            
+        `;
     });
     $("#result-ingrecient").html(result);
 };
-function cutStep(step){
-    console.log(step);
-}
+// this is code for increas and minus increas
+var addDataIngredient = () => {
+    $('#add').on('click', function () {
+        addData();
+        var sum = $('#sum').val();
+        var recipes = $('#recipe').val();
+        updateDataRecipe(recipes, sum);
+    });
+};
+var minusDataIngredient = () => {
+    $('#minus').on('click', function () {
+        minusData();
+        var sum = $('#sum').val();
+        var recipes = $('#recipe').val();
+        updateDataRecipe(recipes, sum);
+    });
+};
+var addData = () => {
+    var sum = $('#sum').val();
+    var number = parseInt(sum) + 1;
+    if (number <= 15) {
+        $('#sum').val(number);
+    };
+};
+var minusData = () => {
+    var sum = $('#sum').val();
+    var number = parseInt(sum) - 1;
+    if (number >= 0) {
+        $('#sum').val(number);
+    };
+};
+// this is function for hide all in selete
+var hide = () => {
+    $('#hide').css('display', 'block');
+};
