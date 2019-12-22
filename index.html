@@ -5,55 +5,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>da</title>
+    <title>Project_jQuery 2020</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</head>
+    <style>
+        #color::after {
+            
+        }
+        @keyframes animate {
+            0% {
+                filter: blur(60px) hue-rotate(0deg);
+            }
 
+            100% {
+                filter: blur(60px) hue-rotate(360deg);
+            }
+        }
+        #image{
+            width: 100%;
+            height:200px;
+            border-radius: 20px;
+        }
+        #desing{
+            width: 50%;
+            height: 100px;
+            background-color: brown;
+            border-radius:20px;
+        }
+        #recipe{
+            margin-top: 30px;
+        }
+        #color{
+            width:10px;
+            height: 100px;
+            background: rgb(38, 0, 255);
+            border-radius:20px;
+            position: relative;
+            -webkit-animation: mymoves 10s infinite;
+            animation: mymoves 10s infinite;
+        }
+        @-webkit-keyframes mymoves {
+            0%   {right: 0px;}
+            25%  {right: 100px;}
+            75%  {right: 50px}
+            100% {right: 100px;}
+        }
+        @keyframes mymoves {
+            0%   {right: 0px;}
+            25%  {right: 20px;}
+            75%  {right: 100px}
+            100% {right: 100px;}
+        }
+        #colors{
+            width:100px;
+            height:100px;
+            background: red;
+            border-radius:20px;
+            position: relative;
+            -webkit-animation: mymove 10s infinite;
+            animation: mymove 10s infinite;
+        }
+        @-webkit-keyframes mymove {
+            0%   {left: 0px;}
+            25%  {left: 100px;}
+            75%  {left: 50px}
+            100% {right: 100px;}
+        }
+        @keyframes mymove {
+            0%   {left: 0px;}
+            25%  {left: 100px;}
+            75%  {left: 50px}
+            100% {left: 100px;}
+        }
+    </style>
+</head>
 <body>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
-                <select id="recipe" class="form-control">
-                    <option value="" disabled selected>Choose Rechipe......</option>
-                </select>
-                <hr>
-                <h1 class="display-1 text-center"></h1>
-            </div>
-            <div class="col-4"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4" style="display: none" id="hide">
-            <div class="input-group mb-3">
-                <div class="input-group-append">
-                    <button class="btn btn-danger" id="minus" value="" type="button">-</button>
-                </div>
-                <input type="text" class="form-control" id="sum" value="1">
-                <div class="input-group-append">
-                    <button class="btn btn-info" type="button" id="add">+</button>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="col-4"></div>
+    <div class="col-12">
+        <img id="image" src="img/background.PNG">
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-4" id="result"> </div>
-            <div class="col-8">
-                <table class="table" id="result-ingrecient"></table>
-                <br>
-                <br>
-                <table class="table" id="result-step"></table>
+            <div class="col-3" id="color">
+                <img src="img/one.jpg" style="height: 100px; width:100%;" class="img-fluid">
+            </div>
+            <div class="col-6" id="desing">
+                <select id="recipe" class="form-control">
+                    <option value="" disabled selected>Choose Rechipe......</option>
+                </select>
+            </div>
+            <div class="col-3" id="colors">
+                <img src="img/two.jpg" style="height: 100px; width:100%;" class="img-fluid">
             </div>
         </div>
-
-
+    </div>
+    <br>
+    <br>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-8">
+                <div id="result"></div>
+                <table class="table" id="result-step"></table>
+            </div>
+            <div class="col-4" style="display: none" id="hide">
+                    <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <button class="btn btn-danger" id="minus" value="" type="button">-</button>
+                            </div>
+                            <input type="text" class="form-control" id="sum" value="1">
+                            <div class="input-group-append">
+                                <button class="btn btn-info" type="button" id="add">+</button>
+                            </div>
+                        </div>
+                <table class="table" id="result-ingrecient"></table>
+            </div>
+        </div>
     </div>
     <script src="project.js"></script>
 </body>

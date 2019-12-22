@@ -12,6 +12,7 @@ $(document).ready(() => {
         addDataIngredient();
         minusDataIngredient();
     });
+
 });
 //this is ajax for reques api
 function requestApi() {
@@ -45,13 +46,10 @@ function getRecipe(rechipeId) {
             var resultStep = "";
             for (let i = 1; i < cutStep.length; i++) {
                 resultStep += `
-                <div class="card shadow-lg"> 
                     <tr>
                         <td style="color:blue">Step ${i}</td>
                         <td>${cutStep[i]} </td>
                     </tr>
-                </div>
-                    
                 `;
             };
             $('#result-step').html(resultStep);
@@ -75,12 +73,11 @@ var updateIngredient = (item, sum) => {
         // this is code for calculator ingredients that update
         var addIngredient = myItem.quantity * parseInt(sum) / getDataVal;
         result += `
-       
             <tr>
                 <td>${myItem.name}</td>
                 <td>${addIngredient}</td>
                 <td>${myItem.unit[0]}</td>
-                <td><img src="${myItem.iconUrl}" width="60"/></td>
+                <td><img src="${myItem.iconUrl}" class="rounded-circle" width="60" height="60"/></td>
             </tr>
         `;
     });
@@ -91,8 +88,8 @@ var getEachRecipe = (img, name, ingredient) => {
     gerInstructions(ingredient);
     var result = "";
     result += `
-        <div class="card-header">${name}</div>
-        <div class="card shadow-lg"><img src="${img}" class="img-thumbnail img-fluid" width="500" height="300"></div>
+        <div style="color:green; font-size:30px;">${name}</div>
+        <div ><img src="${img}" class="img-thumbnail img-fluid" width="500" height="300"></div>
     `;
     $('#result').html(result);
 };
@@ -102,15 +99,12 @@ var gerInstructions = (item) => {
     var result = "";
     item.forEach(myItem => {
         result += `
-        <div class="card shadow-lg"> 
             <tr>
                 <td>${myItem.name}</td>
                 <td>${myItem.quantity}</td>
                 <td>${myItem.unit[0]}</td>
-                <td><img src="${myItem.iconUrl}" width="60"/></td>
+                <td><img src="${myItem.iconUrl}" class="rounded-circle" width="60" height="60"/></td>
             </tr>
-        </div>
-            
         `;
     });
     $("#result-ingrecient").html(result);
