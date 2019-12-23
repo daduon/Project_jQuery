@@ -6,14 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Project_jQuery 2020</title>
+    <link rel="stylesheet" href="materialize/materialize.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="materialize/materialize.min.js"></script>
     <style>
         #color::after {
-            
+            position: absolute;
+            top: -5;
+            left: -5;
+
         }
+
         @keyframes animate {
             0% {
                 filter: blur(60px) hue-rotate(0deg);
@@ -23,65 +29,122 @@
                 filter: blur(60px) hue-rotate(360deg);
             }
         }
-        #image{
+
+        #image {
             width: 100%;
-            height:200px;
+            height: 200px;
             border-radius: 20px;
+            border: 5px solid rgb(219, 69, 69);
+            padding: 20px;
+            box-shadow: 10px 10px 10px #355237;
         }
-        #desing{
+
+        #desing {
             width: 50%;
             height: 100px;
-            background-color: brown;
-            border-radius:20px;
+            background-color: rgb(219, 69, 69);
+            border-radius: 20px;
         }
-        #recipe{
+
+        #recipe {
             margin-top: 30px;
         }
-        #color{
-            width:10px;
+
+        #color {
+            width: 10px;
             height: 100px;
-            background: rgb(38, 0, 255);
-            border-radius:20px;
+            background: #48db74;
+            border-radius: 20px;
             position: relative;
             -webkit-animation: mymoves 10s infinite;
             animation: mymoves 10s infinite;
         }
+
         @-webkit-keyframes mymoves {
-            0%   {right: 0px;}
-            25%  {right: 100px;}
-            75%  {right: 50px}
-            100% {right: 100px;}
+            0% {
+                right: 0px;
+            }
+
+            25% {
+                right: 100px;
+            }
+
+            75% {
+                right: 50px
+            }
+
+            100% {
+                right: 100px;
+            }
         }
+
         @keyframes mymoves {
-            0%   {right: 0px;}
-            25%  {right: 20px;}
-            75%  {right: 100px}
-            100% {right: 100px;}
+            0% {
+                right: 0px;
+            }
+
+            25% {
+                right: 20px;
+            }
+
+            75% {
+                right: 100px
+            }
+
+            100% {
+                right: 100px;
+            }
         }
-        #colors{
-            width:100px;
-            height:100px;
-            background: red;
-            border-radius:20px;
+
+        #colors {
+            width: 100px;
+            height: 100px;
+            background: #48db74;
+            border-radius: 20px;
             position: relative;
             -webkit-animation: mymove 10s infinite;
             animation: mymove 10s infinite;
         }
+
         @-webkit-keyframes mymove {
-            0%   {left: 0px;}
-            25%  {left: 100px;}
-            75%  {left: 50px}
-            100% {right: 100px;}
+            0% {
+                left: 0px;
+            }
+
+            25% {
+                left: 100px;
+            }
+
+            75% {
+                left: 50px
+            }
+
+            100% {
+                right: 100px;
+            }
         }
+
         @keyframes mymove {
-            0%   {left: 0px;}
-            25%  {left: 100px;}
-            75%  {left: 50px}
-            100% {left: 100px;}
+            0% {
+                left: 0px;
+            }
+
+            25% {
+                left: 100px;
+            }
+
+            75% {
+                left: 50px
+            }
+
+            100% {
+                left: 100px;
+            }
         }
     </style>
 </head>
-<body>
+
+<body style="background-color: rgb(218, 252, 249);">
     <div class="col-12">
         <img id="image" src="img/background.PNG">
     </div>
@@ -102,23 +165,31 @@
     </div>
     <br>
     <br>
-    <div class="container mt-5">
+    <div class="container">
         <div class="row">
-            <div class="col-8">
+            <div class="col-6" style="display: none" id="hides">
                 <div id="result"></div>
-                <table class="table" id="result-step"></table>
+                <div class="card bg-danger">
+                    <ul class="collapsible">
+                        <li>
+                          <div class="collapsible-header green text-white" style="font-size:20px;"><b>Instructions</b></div>
+                          <div class="collapsible-body"><span id="result-step"></span></div>
+                        </li>
+                      </ul>
+                </div>
             </div>
-            <div class="col-4" style="display: none" id="hide">
-                    <div class="input-group mb-3">
-                            <div class="input-group-append">
-                                <button class="btn btn-danger" id="minus" value="" type="button">-</button>
-                            </div>
-                            <input type="text" class="form-control" id="sum" value="1">
-                            <div class="input-group-append">
-                                <button class="btn btn-info" type="button" id="add">+</button>
-                            </div>
-                        </div>
-                <table class="table" id="result-ingrecient"></table>
+
+            <div class="col-6" style="display: none" id="hide">
+                   <div class="card">
+                    <button class="btn btn-success" type="button" id="add">+</button>
+                    <input type="text"class="text-center" id="sum" value="1">
+                    <button class="btn btn-danger" id="minus" value="" type="button">-</button>
+                   </div>
+                <div class="card bg-danger">
+                    <h4 class="text-center text-light bg-success">Ingredients</h4>
+                    <table class="table" id="result-ingrecient"></table>
+                </div>
+
             </div>
         </div>
     </div>

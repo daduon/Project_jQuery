@@ -9,10 +9,11 @@ $(document).ready(() => {
         var recipes = $('#recipe').val();
         getRecipe(recipes);
         hide();
+        hides();
         addDataIngredient();
         minusDataIngredient();
     });
-
+    $('.collapsible').collapsible();
 });
 //this is ajax for reques api
 function requestApi() {
@@ -47,8 +48,8 @@ function getRecipe(rechipeId) {
             for (let i = 1; i < cutStep.length; i++) {
                 resultStep += `
                     <tr>
-                        <td style="color:blue">Step ${i}</td>
-                        <td>${cutStep[i]} </td>
+                        <td style="color:#fff">Step: ${i}</td>
+                        <td class="text-light">${cutStep[i]} </td>
                     </tr>
                 `;
             };
@@ -57,6 +58,9 @@ function getRecipe(rechipeId) {
         };
     });
 };
+
+
+
 //this is function for update recipe. sum from increas ingedients
 var updateDataRecipe = (rechipeId, sum) => { 
     alldata.forEach(myItem => {
@@ -73,7 +77,7 @@ var updateIngredient = (item, sum) => {
         // this is code for calculator ingredients that update
         var addIngredient = myItem.quantity * parseInt(sum) / getDataVal;
         result += `
-            <tr>
+            <tr class="text-light">
                 <td>${myItem.name}</td>
                 <td>${addIngredient}</td>
                 <td>${myItem.unit[0]}</td>
@@ -88,8 +92,8 @@ var getEachRecipe = (img, name, ingredient) => {
     gerInstructions(ingredient);
     var result = "";
     result += `
-        <div style="color:green; font-size:30px;">${name}</div>
-        <div ><img src="${img}" class="img-thumbnail img-fluid" width="500" height="300"></div>
+        <div class="card-header bg-success" style="color:white; font-size:30px;">${name}</div>
+        <div ><img src="${img}" class="img-thumbnail" width="100%"></div>
     `;
     $('#result').html(result);
 };
@@ -99,7 +103,7 @@ var gerInstructions = (item) => {
     var result = "";
     item.forEach(myItem => {
         result += `
-            <tr>
+            <tr class="text-light">
                 <td>${myItem.name}</td>
                 <td>${myItem.quantity}</td>
                 <td>${myItem.unit[0]}</td>
@@ -136,11 +140,14 @@ var addData = () => {
 var minusData = () => {
     var sum = $('#sum').val();
     var number = parseInt(sum) - 1;
-    if (number >= 0) {
+    if (number >= 1) {
         $('#sum').val(number);
     };
 };
 // this is function for hide all in selete
 var hide = () => {
     $('#hide').css('display', 'block');
+};
+var hides = () => {
+    $('#hides').css('display', 'block');
 };
